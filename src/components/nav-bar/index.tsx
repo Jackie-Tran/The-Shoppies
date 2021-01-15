@@ -12,11 +12,17 @@ const Navbar: React.FC = () => {
 };
 
 const Container = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 5%;
   display: flex;
   justify-content: center;
   align-items: center;
   background-color: #3f424f;
-  padding: 3%;
+  padding: 3% 0;
+  margin-bottom: 1000px;
 `;
 
 const Title = styled.h1`
@@ -26,10 +32,10 @@ const Title = styled.h1`
 `;
 
 const Star = styled(StarIcon)`
-    color: white;
-    margin-right: 3%;
-    position: absolute;
-    right: 0;
+  color: white;
+  margin-right: 3%;
+  position: absolute;
+  right: 0;
 `;
 
 export default Navbar;

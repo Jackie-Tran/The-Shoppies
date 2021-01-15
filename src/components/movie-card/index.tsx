@@ -1,16 +1,32 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
+
+type Movie = {
+    Title: string;
+    Year: string;
+    imdbID: string;
+    Poster: string;
+};
 
 type Props = {
     title: string;
     year: string;
     poster: string;
-    imbdID: string;
+    imdbID: string;
+    setMovie: React.Dispatch<React.SetStateAction<Movie>>;
+    onClick: () => void;
 }
 
-const MovieCard: React.FC<Props> = ({ title, year, poster, imbdID }) => {
+const MovieCard: React.FC<Props> = ({ title, year, poster, imdbID, setMovie, onClick }) => {
+
+    const handleClick = () => {
+        setMovie({ Title: title, Year: year, Poster: poster, imdbID });
+        onClick();
+    }
+
   return (
-    <Container>
+    <Container onClick={handleClick}>
         <Image src={ poster } />
         <Title>{ title }</Title>
         <Year>{ year }</Year>
