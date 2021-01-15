@@ -1,13 +1,15 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
 import StarIcon from '@material-ui/icons/Star';
 import { Badge } from '@material-ui/core';
+import { NominationsContext } from '../../context/nominations-context';
 
 const Navbar: React.FC = () => {
+  const { nominations } = useContext(NominationsContext);
   return (
     <Container>
       <Title>Shoppies</Title>
-      <Star badgeContent={4} color='primary'>
+      <Star badgeContent={nominations.length} color="primary">
         <StarIcon />
       </Star>
     </Container>

@@ -8,11 +8,11 @@ export type Movie = {
 };
 
 export type NominationsContextType = {
-    movies: Movie[];
-    setMovies: React.Dispatch<React.SetStateAction<Movie[]>>;
+    nominations: Movie[];
+    setNominations: React.Dispatch<React.SetStateAction<Movie[]>>;
 }
 
-export const NominationContext = createContext<NominationsContextType>({
-    movies: [],
-    setMovies: () => { console.warn('no nominations provider') }
+export const NominationsContext = createContext<NominationsContextType>({
+    nominations: [],
+    setNominations: () => { console.warn('no nominations provider') }
 });
