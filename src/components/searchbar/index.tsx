@@ -2,16 +2,29 @@ import React from 'react';
 import styled from 'styled-components';
 import SearchIcon from '@material-ui/icons/Search';
 
-const SearchBar: React.FC = () => {
+type Props = {
+    value: string;
+    setValue: React.Dispatch<React.SetStateAction<string>>;
+    handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
+}
+
+const SearchBar: React.FC<Props> = ({ value, setValue, handleSubmit }) => {
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
+        setValue(e.target.value);
+    }
+
+    
+
     return (
-        <Container>
-            <Input type='text' name='movie-title' placeholder='Search a movie here...'/>
+        <Container onSubmit={handleSubmit}>
+            <Input type='text' name='movie-title' placeholder='Search a movie here...' value={value} onChange={handleChange} />
             <Icon fontSize='large' />
         </Container>
     )
 }
 
-const Container = styled.div`
+const Container = styled.form`
     background-color: #555b6e;
     display: flex;
     align-items: center;
@@ -26,7 +39,6 @@ const Input = styled.input`
 const Icon = styled(SearchIcon)`
     flex: 1;
     color: white;
-
 `;
 
 export default SearchBar;
