@@ -46,14 +46,12 @@ const MoviePage: React.FC = () => {
       <MovieContainer>
         <Poster src={movie.Poster} />
         <MovieDetails>
-          <MovieTitle>
-            <Title>{movie.Title}</Title>
-            <Year>({movie.Year})</Year>
-          </MovieTitle>
-          <p>{movie.Plot}</p>
+            <Title>{movie.Title} ({movie.Year})</Title>
+            <Genre>{ movie.Genre }</Genre>
+            <Plot>{ movie.Plot }</Plot>
         </MovieDetails>
+        <NominateButton>Nominate</NominateButton>
       </MovieContainer>
-      <NominateButton>Nominate</NominateButton>
     </Container>
   );
 };
@@ -63,6 +61,7 @@ const Container = styled(Div100vh)`
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    margin-top: 5%;
 `;
 
 const MovieContainer = styled.div`
@@ -79,28 +78,29 @@ const Poster = styled.img`
 const MovieDetails = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: center;
   text-align: center;
-`;
-
-const MovieTitle = styled.div`
-  display: flex;
-  align-items: center;
+  padding: 5%;
 `;
 
 const Title = styled.h1`
   margin: 0;
 `;
-const Year = styled.h2`
-  margin: 0;
-  color: gray;
+
+const Genre = styled.p`
+    font-weight: 500;
+`;
+
+const Plot = styled.p`
+
 `;
 
 const NominateButton = styled.button`
     -webkit-appearance: none;
     border-radius: 5px;
-    border-width: 2px;
-    border-color: #E56B6F;
+    border: none;
+    background-color: #04A777;
+    color: white;
+    font-size: 1rem;
     width: 50%;
     padding: 3%;
 `;

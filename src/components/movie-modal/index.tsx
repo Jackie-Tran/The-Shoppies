@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import Div100vh from 'react-div-100vh';
 import CloseIcon from '@material-ui/icons/Close';
 import { AnimatePresence, motion } from 'framer-motion';
+import { useHistory } from 'react-router-dom';
 
 type Props = {
   isShowing: boolean;
@@ -21,6 +22,9 @@ const MovieModal: React.FC<Props> = ({
   poster,
   imdbID,
 }) => {
+
+    const history = useHistory();
+
   return (
     <AnimatePresence exitBeforeEnter>
       {isShowing && (
@@ -37,7 +41,7 @@ const MovieModal: React.FC<Props> = ({
               <Title>{ title } ({ year })</Title>
             </MovieDetails>
             <Buttons>
-                <Button>
+                <Button onClick={() => history.push('/movie/' + imdbID)}>
                     More Info
                 </Button>
                 <Button>
