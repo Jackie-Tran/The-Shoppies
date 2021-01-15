@@ -7,14 +7,23 @@ import axios from 'axios';
 import * as API from '../../constants/endpoints';
 import MovieCard from '../../components/movie-card';
 
+type Movie = {
+    Title: string;
+    Year: string;
+    imdbID: string;
+    Poster: string;
+}
+
 const HomePage: React.FC = () => {
   const [search, setSearch] = useState<string>('');
+  const [data, setData] = useState<Movie[]>();
 
   const handleSearch = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const parsedSearch = search.replaceAll(' ', '+');
     try {
-      const { data: res } = await axios.get(API.SEARCH_TITLE(parsedSearch));
+      const { data: { Search: res } } = await axios.get(API.SEARCH_TITLE(parsedSearch));
+      setData(res);
       console.log(res);
     } catch (err) {
       console.log(err);
@@ -30,8 +39,11 @@ const HomePage: React.FC = () => {
         handleSubmit={handleSearch}
       />
       <ResultsContainer>
-          <MovieCard title='Toy Story' year='1995' imbdID='tt0114709' poster='https://m.media-amazon.com/images/M/MV5BMDU2ZWJlMjktMTRhMy00ZTA5LWEzNDgtYmNmZTEwZTViZWJkXkEyXkFqcGdeQXVyNDQ2OTk4MzI@._V1_SX300.jpg'/>
-          <MovieCard title='Toy Story' year='1995' imbdID='tt0114709' poster='https://m.media-amazon.com/images/M/MV5BMDU2ZWJlMjktMTRhMy00ZTA5LWEzNDgtYmNmZTEwZTViZWJkXkEyXkFqcGdeQXVyNDQ2OTk4MzI@._V1_SX300.jpg'/>
+          {
+              data?.map((movie: Movie) => {
+                return (<MovieCard key={movie.imdbID} imbdID={movie.imdbID} title={movie.Title} year={movie.Year} poster={movie.Poster}/>)
+              })
+          }
       </ResultsContainer>
     </Container>
   );

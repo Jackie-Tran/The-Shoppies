@@ -21,10 +21,7 @@ const MovieCard: React.FC<Props> = ({ title, year, poster, imbdID }) => {
 const Container = styled.div`
     width: 40%;
     height: 35vh;
-    border-style: solid;
-    border-width: 1px;
-    border-color: black;
-    margin-bottom: 5%;
+    margin-bottom: 10%;
 `;
 
 const Image = styled.img`
@@ -34,7 +31,7 @@ const Image = styled.img`
 
 const Title = styled.p`
     margin: 0;
-    font-size: 1.2rem;
+    font-size: 1rem;
     font-weight: 500;
 `;
 
