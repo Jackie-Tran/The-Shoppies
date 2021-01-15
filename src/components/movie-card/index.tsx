@@ -1,17 +1,26 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const MovieCard: React.FC = () => {
+type Props = {
+    title: string;
+    year: string;
+    poster: string;
+    imbdID: string;
+}
+
+const MovieCard: React.FC<Props> = ({ title, year, poster, imbdID }) => {
   return (
     <Container>
-        <Image src={'https://m.media-amazon.com/images/M/MV5BMDU2ZWJlMjktMTRhMy00ZTA5LWEzNDgtYmNmZTEwZTViZWJkXkEyXkFqcGdeQXVyNDQ2OTk4MzI@._V1_SX300.jpg'} />
+        <Image src={ poster } />
+        <Title>{ title }</Title>
+        <Year>{ year }</Year>
     </Container>
   );
 };
 
 const Container = styled.div`
-    width: 40vw;
-    height: 30vh;
+    width: 40%;
+    height: 35vh;
     border-style: solid;
     border-width: 1px;
     border-color: black;
@@ -19,8 +28,19 @@ const Container = styled.div`
 `;
 
 const Image = styled.img`
-    max-width: 100%;
-    height: 100%;
+    width: 100%;
+    height: 80%;
+`;
+
+const Title = styled.p`
+    margin: 0;
+    font-size: 1.2rem;
+    font-weight: 500;
+`;
+
+const Year = styled.p`
+    margin: 0;
+    color: gray;
 `;
 
 export default MovieCard;

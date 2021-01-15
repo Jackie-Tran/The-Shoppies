@@ -30,10 +30,8 @@ const HomePage: React.FC = () => {
         handleSubmit={handleSearch}
       />
       <ResultsContainer>
-          <MovieCard />
-          <MovieCard />
-          <MovieCard />
-          <MovieCard />
+          <MovieCard title='Toy Story' year='1995' imbdID='tt0114709' poster='https://m.media-amazon.com/images/M/MV5BMDU2ZWJlMjktMTRhMy00ZTA5LWEzNDgtYmNmZTEwZTViZWJkXkEyXkFqcGdeQXVyNDQ2OTk4MzI@._V1_SX300.jpg'/>
+          <MovieCard title='Toy Story' year='1995' imbdID='tt0114709' poster='https://m.media-amazon.com/images/M/MV5BMDU2ZWJlMjktMTRhMy00ZTA5LWEzNDgtYmNmZTEwZTViZWJkXkEyXkFqcGdeQXVyNDQ2OTk4MzI@._V1_SX300.jpg'/>
       </ResultsContainer>
     </Container>
   );
@@ -48,6 +46,7 @@ const ResultsContainer = styled.div`
     display: flex;
     justify-content: space-evenly;
     flex-wrap: wrap;
+    margin-top: 5%;
 `;
 
 export default HomePage;
