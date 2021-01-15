@@ -1,12 +1,15 @@
 import React from 'react';
 import styled from 'styled-components';
 import StarIcon from '@material-ui/icons/Star';
+import { Badge } from '@material-ui/core';
 
 const Navbar: React.FC = () => {
   return (
     <Container>
       <Title>Shoppies</Title>
-      <Star />
+      <Star badgeContent={4} color='primary'>
+        <StarIcon />
+      </Star>
     </Container>
   );
 };
@@ -31,7 +34,7 @@ const Title = styled.h1`
   font-size: 2rem;
 `;
 
-const Star = styled(StarIcon)`
+const Star = styled(Badge)`
   color: white;
   margin-right: 3%;
   position: absolute;
