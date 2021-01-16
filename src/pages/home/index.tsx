@@ -4,16 +4,11 @@ import Div100vh from 'react-div-100vh';
 import Navbar from '../../components/nav-bar';
 import SearchBar from '../../components/search-bar';
 import axios from 'axios';
+import { Movie } from '../../context/nominations-context';
 import * as API from '../../constants/endpoints';
 import MovieCard from '../../components/movie-card';
 import MovieModal from '../../components/movie-modal';
 
-type Movie = {
-  Title: string;
-  Year: string;
-  imdbID: string;
-  Poster: string;
-};
 
 const HomePage: React.FC = () => {
   const [search, setSearch] = useState<string>('');
@@ -71,8 +66,8 @@ const HomePage: React.FC = () => {
 const Container = styled(Div100vh)`
   display: flex;
   flex-direction: column;
-  margin-top: 16%;
 `;
+
 const ResultsContainer = styled.div`
   display: flex;
   justify-content: space-evenly;

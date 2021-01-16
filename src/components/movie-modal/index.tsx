@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Div100vh from 'react-div-100vh';
 import CloseIcon from '@material-ui/icons/Close';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useHistory } from 'react-router-dom';
+import { Movie, NominationsContext } from '../../context/nominations-context';
 
 type Props = {
   isShowing: boolean;
@@ -22,8 +23,35 @@ const MovieModal: React.FC<Props> = ({
   poster,
   imdbID,
 }) => {
+  const history = useHistory();
+  const { nominations, setNominations } = useContext(NominationsContext);
+  const [isNominated, setIsNominated] = useState<boolean>(false);
 
-    const history = useHistory();
+  useEffect(() => {
+      // Check if movie is already nominated
+      for (let i = 0; i < nominations.length; i++) {
+          if (nominations[i].imdbID === imdbID) {
+              setIsNominated(true);
+              return;
+          }
+      }
+      setIsNominated(false);
+  }, [imdbID, nominations]);
+
+  const addNomination = () => {
+    // Check if there are already 5 nominations
+    if (nominations.length === 5) {
+        setIsShowing(false);
+        return;
+    }
+    const movie: Movie = { Title: title, Year: year, imdbID, Poster: poster };
+    setNominations(nominations.concat(movie));
+  };
+
+  const removeNomination = () => {
+    setNominations(nominations.filter((movie) => movie.imdbID !== imdbID));
+    setIsShowing(false);
+  }
 
   return (
     <AnimatePresence exitBeforeEnter>
@@ -38,15 +66,15 @@ const MovieModal: React.FC<Props> = ({
             <ExitIcon fontSize="large" onClick={(e) => setIsShowing(false)} />
             <Poster src={poster} />
             <MovieDetails>
-              <Title>{ title } ({ year })</Title>
+              <Title>
+                {title} ({year})
+              </Title>
             </MovieDetails>
             <Buttons>
-                <Button onClick={() => history.push('/movie/' + imdbID)}>
-                    More Info
-                </Button>
-                <Button>
-                    Nominate
-                </Button>
+              <Button onClick={() => history.push('/movie/' + imdbID)}>
+                More Info
+              </Button>
+              <NominationButton isNominated={isNominated} onClick={() => {isNominated ? removeNomination() : addNomination()}}>{ isNominated ? 'Remove Nomination' : 'Nominate' }</NominationButton>
             </Buttons>
           </Container>
         </Backdrop>
@@ -68,6 +96,7 @@ const Backdrop = styled(motion.div)`
   height: 100%;
   background: rgba(0, 0, 0, 0.5);
   backdrop-filter: blur(5px);
+  z-index: 2;
 `;
 
 const Container = styled(Div100vh)`
@@ -96,21 +125,25 @@ const Title = styled.h1`
 `;
 
 const Buttons = styled.div`
-    display: flex;
-    width: 100%;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
 `;
 
 const Button = styled.button`
-    -webkit-appearance: none;
-    border-radius: 5px;
-    border: none;
-    background-color: #04A777;
-    color: white;
-    font-size: 1rem;
-    padding: 5%;
-    margin: 5%;
+  -webkit-appearance: none;
+  border-radius: 5px;
+  border: none;
+  background-color: #04a777;
+  color: white;
+  font-size: 1rem;
+  padding: 5%;
+  margin: 5%;
+`;
+
+const NominationButton = styled(Button)<{ isNominated: boolean }>`
+    background-color: ${props => props.isNominated ? '#f07167' : '#04a777'}
 `;
 
 export default MovieModal;
