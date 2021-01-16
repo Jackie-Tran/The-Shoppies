@@ -5,6 +5,7 @@ import { Badge } from '@material-ui/core';
 import { NominationsContext } from '../../context/nominations-context';
 import NominationsModal from '../nominations-modal';
 import { AnimatePresence, motion } from 'framer-motion';
+import { device } from '../../constants/device';
 
 const Navbar: React.FC = () => {
   const { nominations } = useContext(NominationsContext);
@@ -61,6 +62,9 @@ const MainBar = styled.div`
   align-items: center;
   padding: 3% 0;
   z-index: 2;
+  @media ${device.desktop} {
+      padding: 1% 0;
+  }
 `;
 
 const Title = styled.h1`
@@ -74,6 +78,9 @@ const Star = styled.div<{ length: number }>`
   margin-right: 5%;
   position: absolute;
   right: 0;
+  @media ${device.desktop} {
+      margin-right: 3%;
+  }
 `;
 
 const Banner = styled(motion.div)`
