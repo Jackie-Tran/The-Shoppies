@@ -96,6 +96,7 @@ const Backdrop = styled(motion.div)`
   height: 100%;
   background: rgba(0, 0, 0, 0.5);
   backdrop-filter: blur(5px);
+  z-index: 2;
 `;
 
 const Container = styled(Div100vh)`

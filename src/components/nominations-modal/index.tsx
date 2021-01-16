@@ -10,7 +10,7 @@ type Props = {
 };
 
 const NominationsModal: React.FC<Props> = ({ isShowing, setIsShowing }) => {
-  const { nominations, setNominations } = useContext(NominationsContext);
+  const { nominations } = useContext(NominationsContext);
 
   return (
     <AnimatePresence exitBeforeEnter>
@@ -54,6 +54,7 @@ const Container = styled(motion.div)`
   display: flex;
   flex-direction: column;
   align-items: center;
+  z-index: 10;
 `;
 
 const Title = styled.p`

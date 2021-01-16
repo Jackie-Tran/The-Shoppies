@@ -66,8 +66,8 @@ const HomePage: React.FC = () => {
 const Container = styled(Div100vh)`
   display: flex;
   flex-direction: column;
-  margin-top: 16%;
 `;
+
 const ResultsContainer = styled.div`
   display: flex;
   justify-content: space-evenly;
