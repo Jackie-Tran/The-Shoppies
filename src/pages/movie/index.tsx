@@ -59,7 +59,7 @@ const MoviePage: React.FC = () => {
       }
       setIsNominated(false);
     })();
-  }, [imdbID]);
+  }, [imdbID, nominations]);
   
   const addNomination = () => {
     const { Title, Year, imdbID, Poster } = movie;
@@ -77,13 +77,13 @@ const MoviePage: React.FC = () => {
       <Navbar />
       <MovieContainer>
         <Poster src={movie.Poster} />
-        <MovieDetails>
+        <Details>
           <Title>
             {movie.Title} ({movie.Year})
           </Title>
           <Genre>{movie.Genre}</Genre>
           <Plot>{movie.Plot}</Plot>
-        </MovieDetails>
+        </Details>
         <NominateButton isNominated={isNominated} onClick={() => {isNominated ? removeNomination() : addNomination()}}>{isNominated ? 'Remove Nomination' : 'Nominate'}</NominateButton>
       </MovieContainer>
     </Container>
@@ -109,7 +109,7 @@ const Poster = styled.img`
   height: 50%;
 `;
 
-const MovieDetails = styled.div`
+const Details = styled.div`
   display: flex;
   flex-direction: column;
   text-align: center;

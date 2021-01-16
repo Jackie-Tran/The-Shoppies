@@ -1,16 +1,22 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import styled from 'styled-components';
 import StarIcon from '@material-ui/icons/Star';
 import { Badge } from '@material-ui/core';
 import { NominationsContext } from '../../context/nominations-context';
+import NominationsModal from '../nominations-modal';
 
 const Navbar: React.FC = () => {
   const { nominations } = useContext(NominationsContext);
+  const [showNominations, setShowNominations] = useState<boolean>(false);
+  
   return (
     <Container>
       <Title>Shoppies</Title>
-      <Star badgeContent={nominations.length} color="primary">
-        <StarIcon />
+      <Star onClick={() => setShowNominations(!showNominations)}>
+        <Badge badgeContent={nominations.length} color="primary">
+          <StarIcon />
+        </Badge>
+        <NominationsModal isShowing={showNominations} setIsShowing={setShowNominations}/>
       </Star>
     </Container>
   );
@@ -36,9 +42,9 @@ const Title = styled.h1`
   font-size: 2rem;
 `;
 
-const Star = styled(Badge)`
+const Star = styled.div`
   color: white;
-  margin-right: 3%;
+  margin-right: 5%;
   position: absolute;
   right: 0;
 `;
