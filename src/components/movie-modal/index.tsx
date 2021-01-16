@@ -126,6 +126,7 @@ const MovieDetails = styled.div``;
 const Title = styled.h1`
   color: white;
   margin: 5% 0;
+  text-align: center;
   @media ${device.desktop} {
       font-size: 2.5rem;
       margin: 3% 0;

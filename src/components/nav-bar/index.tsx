@@ -17,7 +17,7 @@ const Navbar: React.FC = () => {
         <Title>Shoppies</Title>
         <Star length={nominations.length}>
           <Badge badgeContent={nominations.length} color="primary">
-            <StarIcon onClick={() => setShowNominations(!showNominations)} />
+            <StarIcon onClick={() => setShowNominations(!showNominations)} fontSize='large'/>
           </Badge>
           <NominationsModal
             isShowing={showNominations}
@@ -96,6 +96,10 @@ const Banner = styled(motion.div)`
 
 const BannerText = styled(motion.p)`
     margin: 3%;
+    @media ${device.desktop} {
+        margin: 2%;
+        font-size: 2rem;
+    }
 `;
 
 export default Navbar;
