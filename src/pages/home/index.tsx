@@ -9,15 +9,14 @@ import * as API from '../../constants/endpoints';
 import MovieCard from '../../components/movie-card';
 import MovieModal from '../../components/movie-modal';
 
-
 const HomePage: React.FC = () => {
   const [search, setSearch] = useState<string>('');
   const [data, setData] = useState<Movie[]>();
   const [movie, setMovie] = useState<Movie>({
-      Title: '',
-      Year: '',
-      imdbID: '',
-      Poster: ''
+    Title: '',
+    Year: '',
+    imdbID: '',
+    Poster: '',
   });
   const [showModal, setShowModal] = useState<boolean>(false);
 
@@ -37,12 +36,14 @@ const HomePage: React.FC = () => {
 
   return (
     <Container>
-      <Navbar />
-      <SearchBar
-        value={search}
-        setValue={setSearch}
-        handleSubmit={handleSearch}
-      />
+      <Header>
+        <Navbar />
+        <SearchBar
+          value={search}
+          setValue={setSearch}
+          handleSubmit={handleSearch}
+        />
+      </Header>
       <ResultsContainer>
         {data?.map((movie: Movie) => {
           return (
@@ -58,7 +59,14 @@ const HomePage: React.FC = () => {
           );
         })}
       </ResultsContainer>
-      <MovieModal isShowing={showModal} setIsShowing={setShowModal} title={movie.Title} year={movie.Year} imdbID={movie.imdbID} poster={movie.Poster}/>
+      <MovieModal
+        isShowing={showModal}
+        setIsShowing={setShowModal}
+        title={movie.Title}
+        year={movie.Year}
+        imdbID={movie.imdbID}
+        poster={movie.Poster}
+      />
     </Container>
   );
 };
@@ -66,6 +74,10 @@ const HomePage: React.FC = () => {
 const Container = styled(Div100vh)`
   display: flex;
   flex-direction: column;
+`;
+
+const Header = styled.div`
+
 `;
 
 const ResultsContainer = styled.div`

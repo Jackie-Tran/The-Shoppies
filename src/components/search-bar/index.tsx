@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import SearchIcon from '@material-ui/icons/Search';
+import { motion } from 'framer-motion';
 
 type Props = {
     value: string;
@@ -17,6 +18,7 @@ const SearchBar: React.FC<Props> = ({ value, setValue, handleSubmit }) => {
     
 
     return (
+        
         <Container onSubmit={handleSubmit}>
             <Input type='text' name='movie-title' placeholder='Search a movie here...' value={value} onChange={handleChange} />
             <Icon fontSize='large' />
@@ -24,7 +26,7 @@ const SearchBar: React.FC<Props> = ({ value, setValue, handleSubmit }) => {
     )
 }
 
-const Container = styled.form`
+const Container = styled(motion.form)`
     background-color: #555b6e;
     display: flex;
     align-items: center;

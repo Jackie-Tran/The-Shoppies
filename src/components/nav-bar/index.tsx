@@ -32,7 +32,9 @@ const Navbar: React.FC = () => {
             animate="visible"
             exit="hidden"
           >
-            ✨Thanks for nominating 5 movies!✨
+            <BannerText>
+                ✨Thanks for nominating 5 movies!✨
+            </BannerText>
           </Banner>
         )}
       </AnimatePresence>
@@ -41,13 +43,12 @@ const Navbar: React.FC = () => {
 };
 
 const bannerVariant = {
-  visible: { y: 0 },
-  hidden: { y: '-100%' },
+  visible: { height: 'auto' },
+  hidden: { height: 0 },
 };
 
 const Container = styled.div`
   width: 100vw;
-  height: 15vh;
   display: flex;
   flex-direction: column;
 `;
@@ -83,9 +84,12 @@ const Banner = styled(motion.div)`
   text-align: center;
   width: 100%;
   margin: 0;
-  padding: 5%;
-  box-sizing: border-box;
+  overflow: hidden;
   z-index: 1;
+`;
+
+const BannerText = styled(motion.p)`
+    margin: 3%;
 `;
 
 export default Navbar;
