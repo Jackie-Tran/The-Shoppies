@@ -62,6 +62,8 @@ const MoviePage: React.FC = () => {
   }, [imdbID, nominations]);
   
   const addNomination = () => {
+    // Check if there are already 5 nominations
+    if (nominations.length === 5) return;
     const { Title, Year, imdbID, Poster } = movie;
     setNominations(nominations.concat({ Title, Year, imdbID, Poster }));
     setIsNominated(true);

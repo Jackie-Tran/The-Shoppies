@@ -39,9 +39,13 @@ const MovieModal: React.FC<Props> = ({
   }, [imdbID, nominations]);
 
   const addNomination = () => {
+    // Check if there are already 5 nominations
+    if (nominations.length === 5) {
+        setIsShowing(false);
+        return;
+    }
     const movie: Movie = { Title: title, Year: year, imdbID, Poster: poster };
     setNominations(nominations.concat(movie));
-    setIsShowing(false);
   };
 
   const removeNomination = () => {

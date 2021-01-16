@@ -1,7 +1,7 @@
 import { AnimatePresence, motion } from 'framer-motion';
 import React, { useContext } from 'react';
 import styled from 'styled-components';
-import { NominationsContext } from '../../context/nominations-context';
+import { Movie, NominationsContext } from '../../context/nominations-context';
 import Nomination from './nomination';
 
 type Props = {
@@ -22,9 +22,13 @@ const NominationsModal: React.FC<Props> = ({ isShowing, setIsShowing }) => {
         exit="hidden"
         >
           <Title>Your Nominations</Title>
-          <Nomination title="Toy Story" year="1995" />
-          <Nomination title="Toy Story" year="1995" />
-          <Nomination title="Toy Story" year="1995" />
+          {
+              nominations.map((movie: Movie) => {
+                  return (
+                      <Nomination imdbID={movie.imdbID} title={movie.Title} year={movie.Year} />
+                  )
+              })
+          }
         </Container>
       )}
     </AnimatePresence>

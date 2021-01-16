@@ -12,9 +12,9 @@ const Navbar: React.FC = () => {
   return (
     <Container>
       <Title>Shoppies</Title>
-      <Star onClick={() => setShowNominations(!showNominations)}>
+      <Star length={nominations.length}>
         <Badge badgeContent={nominations.length} color="primary">
-          <StarIcon />
+          <StarIcon onClick={() => setShowNominations(!showNominations)} />
         </Badge>
         <NominationsModal isShowing={showNominations} setIsShowing={setShowNominations}/>
       </Star>
@@ -42,8 +42,8 @@ const Title = styled.h1`
   font-size: 2rem;
 `;
 
-const Star = styled.div`
-  color: white;
+const Star = styled.div<{ length: number }>`
+  color: ${(props) => props.length === 5 ? 'gold' : 'white'};
   margin-right: 5%;
   position: absolute;
   right: 0;

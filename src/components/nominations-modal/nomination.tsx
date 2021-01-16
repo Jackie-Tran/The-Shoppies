@@ -1,17 +1,25 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
 import CancelIcon from '@material-ui/icons/Cancel';
+import { NominationsContext } from '../../context/nominations-context';
 
 type Props = {
     title: string;
     year: string;
+    imdbID: string;
 }
 
-const Nomination: React.FC<Props> = ({ title, year }) => {
+const Nomination: React.FC<Props> = ({ title, year, imdbID }) => {
+    const { nominations, setNominations } = useContext(NominationsContext);
+
+    const removeNomination = () => {
+        setNominations(nominations.filter((movie) => movie.imdbID !== imdbID));
+    }
+
     return (
         <Container>
             <Text>{title} ({year})</Text>
-            <CancelIcon />
+            <CancelIcon onClick={removeNomination}/>
         </Container>
     )
 }
