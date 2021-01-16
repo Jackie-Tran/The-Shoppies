@@ -6,6 +6,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { useHistory } from 'react-router-dom';
 import { Movie, NominationsContext } from '../../context/nominations-context';
 import { device } from '../../constants/device';
+import { AlertContext } from '../../context/alert-context';
 
 type Props = {
   isShowing: boolean;
@@ -26,33 +27,47 @@ const MovieModal: React.FC<Props> = ({
 }) => {
   const history = useHistory();
   const { nominations, setNominations } = useContext(NominationsContext);
+  const { setAlert, setOpen } = useContext(AlertContext);
   const [isNominated, setIsNominated] = useState<boolean>(false);
 
   useEffect(() => {
-      // Check if movie is already nominated
-      for (let i = 0; i < nominations.length; i++) {
-          if (nominations[i].imdbID === imdbID) {
-              setIsNominated(true);
-              return;
-          }
+    // Check if movie is already nominated
+    for (let i = 0; i < nominations.length; i++) {
+      if (nominations[i].imdbID === imdbID) {
+        setIsNominated(true);
+        return;
       }
-      setIsNominated(false);
+    }
+    setIsNominated(false);
   }, [imdbID, nominations]);
 
   const addNomination = () => {
     // Check if there are already 5 nominations
     if (nominations.length === 5) {
-        setIsShowing(false);
-        return;
+      setIsShowing(false);
+      setAlert({
+        severity: 'error',
+        message: 'You already made 5 nominations.',
+      });
+      setOpen(true);
+      return;
     }
     const movie: Movie = { Title: title, Year: year, imdbID, Poster: poster };
     setNominations(nominations.concat(movie));
+    setIsShowing(false);
+    setAlert({ severity: 'success', message: 'Successfully made nomination.' });
+    setOpen(true);
   };
 
   const removeNomination = () => {
     setNominations(nominations.filter((movie) => movie.imdbID !== imdbID));
     setIsShowing(false);
-  }
+    setAlert({
+      severity: 'success',
+      message: 'Successfully removed nomination.',
+    });
+    setOpen(true);
+  };
 
   return (
     <AnimatePresence exitBeforeEnter>
@@ -75,7 +90,14 @@ const MovieModal: React.FC<Props> = ({
               <Button onClick={() => history.push('/movie/' + imdbID)}>
                 More Info
               </Button>
-              <NominationButton isNominated={isNominated} onClick={() => {isNominated ? removeNomination() : addNomination()}}>{ isNominated ? 'Remove Nomination' : 'Nominate' }</NominationButton>
+              <NominationButton
+                isNominated={isNominated}
+                onClick={() => {
+                  isNominated ? removeNomination() : addNomination();
+                }}
+              >
+                {isNominated ? 'Remove Nomination' : 'Nominate'}
+              </NominationButton>
             </Buttons>
           </Container>
         </Backdrop>
@@ -117,7 +139,7 @@ const ExitIcon = styled(CloseIcon)`
 const Poster = styled.img`
   width: 15rem;
   @media ${device.desktop} {
-      width: 20rem;
+    width: 20rem;
   }
 `;
 
@@ -128,8 +150,8 @@ const Title = styled.h1`
   margin: 5% 0;
   text-align: center;
   @media ${device.desktop} {
-      font-size: 2.5rem;
-      margin: 3% 0;
+    font-size: 2.5rem;
+    margin: 3% 0;
   }
 `;
 
@@ -150,13 +172,13 @@ const Button = styled.button`
   padding: 5%;
   margin: 5%;
   @media ${device.desktop} {
-      padding: 1% 3%;
-      margin: 3%;
+    padding: 1% 3%;
+    margin: 3%;
   }
 `;
 
 const NominationButton = styled(Button)<{ isNominated: boolean }>`
-    background-color: ${props => props.isNominated ? '#f07167' : '#04a777'}
+  background-color: ${(props) => (props.isNominated ? '#f07167' : '#04a777')};
 `;
 
 export default MovieModal;

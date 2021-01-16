@@ -28,7 +28,7 @@ function App() {
             </Route>
           </Switch>
         </Router>
-        <Snackbar />
+        <Snackbar autoHideDuration={5000}/>
       </AlertContext.Provider>
     </NominationsContext.Provider>
   );

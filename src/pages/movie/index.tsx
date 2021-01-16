@@ -7,16 +7,7 @@ import axios from 'axios';
 import * as API from '../../constants/endpoints';
 import { Movie, NominationsContext } from '../../context/nominations-context';
 import { device } from '../../constants/device';
-
-// type Movie = {
-//   Title: string;
-//   Year: string;
-//   imdbRating: string;
-//   Rated: string;
-//   Genre: string;
-//   Plot: string;
-//   Poster: string;
-// };
+import { AlertContext } from '../../context/alert-context';
 
 type MovieDetails = {
   imdbRating: string;
@@ -27,6 +18,7 @@ type MovieDetails = {
 
 const MoviePage: React.FC = () => {
   const { nominations, setNominations } = useContext(NominationsContext);
+  const { setAlert, setOpen } = useContext(AlertContext);
   const { imdbID } = useParams<{ imdbID: string }>();
   const [movie, setMovie] = useState<Movie & MovieDetails>({
     Title: '',
@@ -72,15 +64,23 @@ const MoviePage: React.FC = () => {
 
   const addNomination = () => {
     // Check if there are already 5 nominations
-    if (nominations.length === 5) return;
+    if (nominations.length === 5) {
+        setAlert({ severity: 'error', message: 'You already made 5 nominations.' });
+        setOpen(true);
+        return;
+    };
     const { Title, Year, imdbID, Poster } = movie;
     setNominations(nominations.concat({ Title, Year, imdbID, Poster }));
     setIsNominated(true);
+    setAlert({ severity: 'success', message: 'Successfully made nomination.' });
+    setOpen(true);
   };
 
   const removeNomination = () => {
     setNominations(nominations.filter((movie) => movie.imdbID !== imdbID));
     setIsNominated(false);
+    setAlert({ severity: 'success', message: 'Successfully removed nomination' });
+    setOpen(true);
   };
 
   return (

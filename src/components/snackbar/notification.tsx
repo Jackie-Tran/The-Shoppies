@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
 import { IoIosCheckmarkCircleOutline } from 'react-icons/io';
 import { AiOutlineWarning, AiOutlineInfoCircle } from 'react-icons/ai';
 import { BiErrorCircle } from 'react-icons/bi';
 import { RiCloseLine } from 'react-icons/ri';
-import { Alert } from '../../context/alert-context';
+import { Alert, AlertContext } from '../../context/alert-context';
 
 const generateColor = (severity: string): string => {
   switch (severity) {
@@ -36,18 +36,16 @@ const generateIcon = (severity: string) => {
   }
 };
 
-type Props = {
-  handleClose: () => void;
-};
+const Notification: React.FC<Alert> = () => {
+  const { alert, setOpen } = useContext(AlertContext);
 
-const Notification: React.FC<Alert> = ({ severity, message }) => {
   return (
-    <Container severity={severity}>
+    <Container severity={alert.severity}>
       <MessageContainer>
-        {generateIcon(severity)}
-        <Message>{message}</Message>
+        {generateIcon(alert.severity)}
+        <Message>{alert.message}</Message>
       </MessageContainer>
-      <CloseButton>
+      <CloseButton onClick={() => setOpen(false)}>
         <RiCloseLine color="white" size={28} />
       </CloseButton>
     </Container>
