@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import SearchIcon from '@material-ui/icons/Search';
 import { motion } from 'framer-motion';
+import { device } from '../../constants/device';
 
 type Props = {
     value: string;
@@ -14,8 +15,6 @@ const SearchBar: React.FC<Props> = ({ value, setValue, handleSubmit }) => {
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
         setValue(e.target.value);
     }
-
-    
 
     return (
         
@@ -36,11 +35,16 @@ const Input = styled.input`
     flex: 6;
     border-radius: 0;
     font-size: 1.5rem;
+    padding: 1%;
+    @media ${device.desktop} {
+        flex: 20;
+    }
 `;
 
 const Icon = styled(SearchIcon)`
     flex: 1;
     color: white;
+    
 `;
 
 export default SearchBar;

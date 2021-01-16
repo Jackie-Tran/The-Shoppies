@@ -5,6 +5,7 @@ import { Badge } from '@material-ui/core';
 import { NominationsContext } from '../../context/nominations-context';
 import NominationsModal from '../nominations-modal';
 import { AnimatePresence, motion } from 'framer-motion';
+import { device } from '../../constants/device';
 
 const Navbar: React.FC = () => {
   const { nominations } = useContext(NominationsContext);
@@ -16,7 +17,7 @@ const Navbar: React.FC = () => {
         <Title>Shoppies</Title>
         <Star length={nominations.length}>
           <Badge badgeContent={nominations.length} color="primary">
-            <StarIcon onClick={() => setShowNominations(!showNominations)} />
+            <StarIcon onClick={() => setShowNominations(!showNominations)} fontSize='large'/>
           </Badge>
           <NominationsModal
             isShowing={showNominations}
@@ -48,7 +49,6 @@ const bannerVariant = {
 };
 
 const Container = styled.div`
-  width: 100vw;
   display: flex;
   flex-direction: column;
 `;
@@ -61,6 +61,9 @@ const MainBar = styled.div`
   align-items: center;
   padding: 3% 0;
   z-index: 2;
+  @media ${device.desktop} {
+      padding: 1% 0;
+  }
 `;
 
 const Title = styled.h1`
@@ -74,6 +77,9 @@ const Star = styled.div<{ length: number }>`
   margin-right: 5%;
   position: absolute;
   right: 0;
+  @media ${device.desktop} {
+      margin-right: 3%;
+  }
 `;
 
 const Banner = styled(motion.div)`
@@ -90,6 +96,10 @@ const Banner = styled(motion.div)`
 
 const BannerText = styled(motion.p)`
     margin: 3%;
+    @media ${device.desktop} {
+        margin: 2%;
+        font-size: 2rem;
+    }
 `;
 
 export default Navbar;

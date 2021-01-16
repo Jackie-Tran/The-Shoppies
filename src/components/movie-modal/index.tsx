@@ -5,6 +5,7 @@ import CloseIcon from '@material-ui/icons/Close';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useHistory } from 'react-router-dom';
 import { Movie, NominationsContext } from '../../context/nominations-context';
+import { device } from '../../constants/device';
 
 type Props = {
   isShowing: boolean;
@@ -114,7 +115,10 @@ const ExitIcon = styled(CloseIcon)`
 `;
 
 const Poster = styled.img`
-  width: 65%;
+  width: 15rem;
+  @media ${device.desktop} {
+      width: 20rem;
+  }
 `;
 
 const MovieDetails = styled.div``;
@@ -122,6 +126,11 @@ const MovieDetails = styled.div``;
 const Title = styled.h1`
   color: white;
   margin: 5% 0;
+  text-align: center;
+  @media ${device.desktop} {
+      font-size: 2.5rem;
+      margin: 3% 0;
+  }
 `;
 
 const Buttons = styled.div`
@@ -140,6 +149,10 @@ const Button = styled.button`
   font-size: 1rem;
   padding: 5%;
   margin: 5%;
+  @media ${device.desktop} {
+      padding: 1% 3%;
+      margin: 3%;
+  }
 `;
 
 const NominationButton = styled(Button)<{ isNominated: boolean }>`

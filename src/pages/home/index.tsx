@@ -8,6 +8,7 @@ import { Movie } from '../../context/nominations-context';
 import * as API from '../../constants/endpoints';
 import MovieCard from '../../components/movie-card';
 import MovieModal from '../../components/movie-modal';
+import { device } from '../../constants/device';
 
 const HomePage: React.FC = () => {
   const [search, setSearch] = useState<string>('');
@@ -36,14 +37,12 @@ const HomePage: React.FC = () => {
 
   return (
     <Container>
-      <Header>
         <Navbar />
         <SearchBar
           value={search}
           setValue={setSearch}
           handleSubmit={handleSearch}
         />
-      </Header>
       <ResultsContainer>
         {data?.map((movie: Movie) => {
           return (
@@ -76,15 +75,14 @@ const Container = styled(Div100vh)`
   flex-direction: column;
 `;
 
-const Header = styled.div`
-
-`;
-
 const ResultsContainer = styled.div`
   display: flex;
   justify-content: space-evenly;
   flex-wrap: wrap;
   margin-top: 5%;
+  @media ${device.desktop} {
+      margin-top: 3%;
+  }
 `;
 
 export default HomePage;

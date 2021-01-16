@@ -6,6 +6,7 @@ import Navbar from '../../components/nav-bar';
 import axios from 'axios';
 import * as API from '../../constants/endpoints';
 import { Movie, NominationsContext } from '../../context/nominations-context';
+import { device } from '../../constants/device';
 
 // type Movie = {
 //   Title: string;
@@ -17,13 +18,12 @@ import { Movie, NominationsContext } from '../../context/nominations-context';
 //   Poster: string;
 // };
 
-
 type MovieDetails = {
   imdbRating: string;
   Rated: string;
   Genre: string;
   Plot: string;
-}
+};
 
 const MoviePage: React.FC = () => {
   const { nominations, setNominations } = useContext(NominationsContext);
@@ -46,7 +46,16 @@ const MoviePage: React.FC = () => {
         // Get the movie
         const { data: res } = await axios.get(API.GET_MOVIE(imdbID));
         const { Title, Year, Poster, imdbRating, Rated, Genre, Plot } = res;
-        setMovie({ Title, Year, imdbID, Poster, imdbRating, Rated, Genre, Plot });
+        setMovie({
+          Title,
+          Year,
+          imdbID,
+          Poster,
+          imdbRating,
+          Rated,
+          Genre,
+          Plot,
+        });
         // Check if movie is already nominated
         for (let i = 0; i < nominations.length; i++) {
           if (nominations[i].imdbID === imdbID) {
@@ -60,7 +69,7 @@ const MoviePage: React.FC = () => {
       setIsNominated(false);
     })();
   }, [imdbID, nominations]);
-  
+
   const addNomination = () => {
     // Check if there are already 5 nominations
     if (nominations.length === 5) return;
@@ -72,7 +81,7 @@ const MoviePage: React.FC = () => {
   const removeNomination = () => {
     setNominations(nominations.filter((movie) => movie.imdbID !== imdbID));
     setIsNominated(false);
-  }
+  };
 
   return (
     <Container>
@@ -86,7 +95,14 @@ const MoviePage: React.FC = () => {
           <Genre>{movie.Genre}</Genre>
           <Plot>{movie.Plot}</Plot>
         </Details>
-        <NominateButton isNominated={isNominated} onClick={() => {isNominated ? removeNomination() : addNomination()}}>{isNominated ? 'Remove Nomination' : 'Nominate'}</NominateButton>
+        <NominateButton
+          isNominated={isNominated}
+          onClick={() => {
+            isNominated ? removeNomination() : addNomination();
+          }}
+        >
+          {isNominated ? 'Remove Nomination' : 'Nominate'}
+        </NominateButton>
       </MovieContainer>
     </Container>
   );
@@ -95,20 +111,24 @@ const MoviePage: React.FC = () => {
 const Container = styled(Div100vh)`
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin-top: 5%;
 `;
 
 const MovieContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding: 10%;
+  box-sizing: border-box;
+  @media ${device.desktop} {
+    padding: 3%;
+  }
 `;
 
 const Poster = styled.img`
-  width: 50%;
-  height: 50%;
+  width: 13rem;
+  @media ${device.desktop} {
+    width: 16rem;
+  }
 `;
 
 const Details = styled.div`
@@ -116,6 +136,9 @@ const Details = styled.div`
   flex-direction: column;
   text-align: center;
   padding: 5%;
+  @media ${device.desktop} {
+    padding: 1%;
+  }
 `;
 
 const Title = styled.h1`
@@ -124,6 +147,9 @@ const Title = styled.h1`
 
 const Genre = styled.p`
   font-weight: 500;
+  @media ${device.desktop} {
+    font-size: 1.2rem;
+  }
 `;
 
 const Plot = styled.p``;
@@ -137,6 +163,10 @@ const NominateButton = styled.button<{ isNominated: boolean }>`
   font-size: 1rem;
   width: 50%;
   padding: 3%;
+  @media ${device.desktop} {
+      width: 20%;
+      padding: 1%;
+  }
 `;
 
 export default MoviePage;
