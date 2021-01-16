@@ -1,5 +1,5 @@
 import { AnimatePresence, motion } from 'framer-motion';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect } from 'react';
 import styled from 'styled-components';
 import { AlertContext } from '../../context/alert-context';
 import Notification from './notification';
@@ -18,7 +18,7 @@ const Snackbar: React.FC<Props> = ({ autoHideDuration }) => {
       }, autoHideDuration);
       return () => clearTimeout(timer);
     }
-  }, [open]);
+  }, [open, autoHideDuration, setOpen]);
 
   return (
     <AnimatePresence exitBeforeEnter>
