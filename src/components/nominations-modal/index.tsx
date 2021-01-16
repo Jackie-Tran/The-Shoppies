@@ -1,6 +1,7 @@
 import { AnimatePresence, motion } from 'framer-motion';
 import React, { useContext } from 'react';
 import styled from 'styled-components';
+import { device } from '../../constants/device';
 import { Movie, NominationsContext } from '../../context/nominations-context';
 import Nomination from './nomination';
 
@@ -55,6 +56,9 @@ const Container = styled(motion.div)`
   flex-direction: column;
   align-items: center;
   z-index: 10;
+  @media ${device.desktop} {
+        width: 30vw;
+    }
 `;
 
 const Title = styled.p`
