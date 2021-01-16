@@ -20,7 +20,9 @@ const SearchBar: React.FC<Props> = ({ value, setValue, handleSubmit }) => {
         
         <Container onSubmit={handleSubmit}>
             <Input type='text' name='movie-title' placeholder='Search a movie here...' value={value} onChange={handleChange} />
-            <Icon fontSize='large' />
+            <SubmitButton type='submit'>
+                <Icon fontSize='large' />
+            </SubmitButton>
         </Container>
     )
 }
@@ -41,8 +43,13 @@ const Input = styled.input`
     }
 `;
 
-const Icon = styled(SearchIcon)`
+const SubmitButton = styled.button`
     flex: 1;
+    height: 100%;
+    background: none;
+`;
+
+const Icon = styled(SearchIcon)`
     color: white;
     
 `;
