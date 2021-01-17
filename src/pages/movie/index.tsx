@@ -7,7 +7,6 @@ import axios from 'axios';
 import * as API from '../../constants/endpoints';
 import { Movie, NominationsContext } from '../../context/nominations-context';
 import { device } from '../../constants/device';
-import { AlertContext } from '../../context/alert-context';
 
 type MovieDetails = {
   imdbRating: string;
@@ -17,8 +16,7 @@ type MovieDetails = {
 };
 
 const MoviePage: React.FC = () => {
-  const { nominations, setNominations } = useContext(NominationsContext);
-  const { setAlert, setOpen } = useContext(AlertContext);
+  const { nominations, addNomination, removeNomination } = useContext(NominationsContext);
   const { imdbID } = useParams<{ imdbID: string }>();
   const [movie, setMovie] = useState<Movie & MovieDetails>({
     Title: '',
@@ -62,25 +60,16 @@ const MoviePage: React.FC = () => {
     })();
   }, [imdbID, nominations]);
 
-  const addNomination = () => {
-    // Check if there are already 5 nominations
-    if (nominations.length === 5) {
-        setAlert({ severity: 'error', message: 'You already made 5 nominations.' });
-        setOpen(true);
-        return;
-    };
+  const handleAddNomination = async () => {
     const { Title, Year, imdbID, Poster } = movie;
-    setNominations(nominations.concat({ Title, Year, imdbID, Poster }));
+    const basicMovie = { Title, Year, imdbID, Poster };
+    await addNomination(basicMovie);
     setIsNominated(true);
-    setAlert({ severity: 'success', message: 'Successfully made nomination.' });
-    setOpen(true);
   };
 
-  const removeNomination = () => {
-    setNominations(nominations.filter((movie) => movie.imdbID !== imdbID));
+  const handleRemoveNomination = async () => {
+    await removeNomination(imdbID);
     setIsNominated(false);
-    setAlert({ severity: 'success', message: 'Successfully removed nomination' });
-    setOpen(true);
   };
 
   return (
@@ -98,7 +87,7 @@ const MoviePage: React.FC = () => {
         <NominateButton
           isNominated={isNominated}
           onClick={() => {
-            isNominated ? removeNomination() : addNomination();
+            isNominated ? handleAddNomination() : handleRemoveNomination();
           }}
         >
           {isNominated ? 'Remove Nomination' : 'Nominate'}

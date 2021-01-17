@@ -2,7 +2,6 @@ import React, { useContext } from 'react';
 import styled from 'styled-components';
 import CancelIcon from '@material-ui/icons/Cancel';
 import { NominationsContext } from '../../context/nominations-context';
-import { AlertContext } from '../../context/alert-context';
 
 type Props = {
     title: string;
@@ -11,19 +10,12 @@ type Props = {
 }
 
 const Nomination: React.FC<Props> = ({ title, year, imdbID }) => {
-    const { nominations, setNominations } = useContext(NominationsContext);
-    const { setAlert, setOpen } = useContext(AlertContext);
-
-    const removeNomination = () => {
-        setNominations(nominations.filter((movie) => movie.imdbID !== imdbID));
-        setAlert({ severity: 'success', message: 'Successfully removed nomination.' });
-        setOpen(true);
-    }
+    const { removeNomination } = useContext(NominationsContext);
 
     return (
         <Container>
             <Text>{title} ({year})</Text>
-            <CancelIcon onClick={removeNomination}/>
+            <CancelIcon onClick={() => removeNomination(imdbID)}/>
         </Container>
     )
 }

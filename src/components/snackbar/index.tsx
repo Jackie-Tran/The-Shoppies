@@ -9,20 +9,20 @@ type Props = {
 };
 
 const Snackbar: React.FC<Props> = ({ autoHideDuration }) => {
-  const { alert, open, setOpen } = useContext(AlertContext);
+  const { alert, showAlert, setShowAlert } = useContext(AlertContext);
 
   useEffect(() => {
     if (autoHideDuration) {
       const timer = setTimeout(() => {
-        setOpen(false);
+        setShowAlert(false);
       }, autoHideDuration);
       return () => clearTimeout(timer);
     }
-  }, [open, autoHideDuration, setOpen]);
+  }, [showAlert, autoHideDuration, setShowAlert]);
 
   return (
     <AnimatePresence exitBeforeEnter>
-      {open && (
+      {showAlert && (
         <Container
             variants={snackbar}
             initial='hidden'

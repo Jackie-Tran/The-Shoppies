@@ -8,8 +8,8 @@ export type Alert = {
 export type AlertContextType = {
     alert: Alert;
     setAlert: React.Dispatch<React.SetStateAction<Alert>>;
-    open: boolean;
-    setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+    showAlert: boolean;
+    setShowAlert: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const AlertContext = createContext<AlertContextType>({
@@ -18,6 +18,6 @@ export const AlertContext = createContext<AlertContextType>({
         message: '',
     },
     setAlert: () => { console.warn('no alert provider') },
-    open: false,
-    setOpen: () => { console.warn('no alert provider') },
+    showAlert: false,
+    setShowAlert: () => { console.warn('no alert provider') },
 });
