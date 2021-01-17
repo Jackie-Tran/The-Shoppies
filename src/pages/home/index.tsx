@@ -57,6 +57,38 @@ const HomePage: React.FC = () => {
             />
           );
         })}
+        {/* <MovieCard 
+            imdbID='tt0114709'
+            title='toy story'
+            year='1995'
+            poster='https://m.media-amazon.com/images/M/MV5BMDU2ZWJlMjktMTRhMy00ZTA5LWEzNDgtYmNmZTEwZTViZWJkXkEyXkFqcGdeQXVyNDQ2OTk4MzI@._V1_SX300.jpg'
+            setMovie={setMovie}
+            onClick={() => setShowModal(true)}
+        />
+        <MovieCard 
+            imdbID='tt0114709'
+            title='toy story'
+            year='1995'
+            poster='https://m.media-amazon.com/images/M/MV5BMDU2ZWJlMjktMTRhMy00ZTA5LWEzNDgtYmNmZTEwZTViZWJkXkEyXkFqcGdeQXVyNDQ2OTk4MzI@._V1_SX300.jpg'
+            setMovie={setMovie}
+            onClick={() => setShowModal(true)}
+        />
+        <MovieCard 
+            imdbID='tt0114709'
+            title='toy story'
+            year='1995'
+            poster='https://m.media-amazon.com/images/M/MV5BMDU2ZWJlMjktMTRhMy00ZTA5LWEzNDgtYmNmZTEwZTViZWJkXkEyXkFqcGdeQXVyNDQ2OTk4MzI@._V1_SX300.jpg'
+            setMovie={setMovie}
+            onClick={() => setShowModal(true)}
+        />
+        <MovieCard 
+            imdbID='tt0114709'
+            title='toy story'
+            year='1995'
+            poster='https://m.media-amazon.com/images/M/MV5BMDU2ZWJlMjktMTRhMy00ZTA5LWEzNDgtYmNmZTEwZTViZWJkXkEyXkFqcGdeQXVyNDQ2OTk4MzI@._V1_SX300.jpg'
+            setMovie={setMovie}
+            onClick={() => setShowModal(true)}
+        /> */}
       </ResultsContainer>
       <MovieModal
         isShowing={showModal}
@@ -70,7 +102,7 @@ const HomePage: React.FC = () => {
   );
 };
 
-const Container = styled(Div100vh)`
+const Container = styled.div`
   display: flex;
   flex-direction: column;
 `;
@@ -79,9 +111,9 @@ const ResultsContainer = styled.div`
   display: flex;
   justify-content: space-evenly;
   flex-wrap: wrap;
-  margin-top: 5%;
+  padding-top: 5%;
   @media ${device.desktop} {
-      margin-top: 3%;
+      padding-top: 3%;
   }
 `;
 

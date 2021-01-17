@@ -13,7 +13,7 @@ function App() {
     severity: 'information',
     message: 'default alert',
   });
-  const [showAlert, setShowAlert] = useState<boolean>(true);
+  const [showAlert, setShowAlert] = useState<boolean>(false);
 
   useEffect(() => {
     // Check if there are already nominations
@@ -63,7 +63,7 @@ function App() {
             </Route>
           </Switch>
         </Router>
-        <Snackbar autoHideDuration={10000} />
+        <Snackbar autoHideDuration={5000} />
       </AlertContext.Provider>
     </NominationsContext.Provider>
   );
