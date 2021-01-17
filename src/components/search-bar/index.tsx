@@ -45,6 +45,7 @@ const Input = styled.input`
 
 const SubmitButton = styled.button`
     flex: 1;
+    padding: 1% 0;
     height: 100%;
     background: none;
 `;
