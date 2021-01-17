@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import HomePage from './pages/home';
 import MoviePage from './pages/movie';
@@ -13,11 +13,46 @@ function App() {
     severity: 'information',
     message: 'default alert',
   });
-  const [open, setOpen] = useState<boolean>(true);
+  const [showAlert, setShowAlert] = useState<boolean>(false);
+
+  useEffect(() => {
+    // Check if there are already nominations
+    const storedNominations = localStorage.getItem('nominations');
+    if (storedNominations) {
+      setNominations(JSON.parse(storedNominations));
+    }
+  }, []);
+
+  const addNomination = async (movie: Movie) => {
+      // Check if there are already 5 nominations
+      if (nominations.length === 5) {
+          setAlert({ severity: 'error', message: 'You already made 5 nominations' });
+          setShowAlert(true);
+          return;
+      }
+      // Set new nominations
+      const newNominations = nominations.concat(movie);
+      setNominations(newNominations);
+      localStorage.setItem('nominations', JSON.stringify(newNominations));
+      // Set Alert
+      setAlert({ severity: 'success', message: 'Successfully made nominations.' });
+      setShowAlert(true);
+      return;
+  }
+
+  const removeNomination = async (imdbID: string) => {
+      const newNominations = (nominations.filter((movie) => movie.imdbID !== imdbID));
+      setNominations(newNominations);
+      localStorage.setItem('nominations', JSON.stringify(newNominations));
+      // Set Alert
+      setAlert({ severity: 'success', message: 'Successfully removed nomination.' });
+      setShowAlert(true);
+      return;
+  }
 
   return (
-    <NominationsContext.Provider value={{ nominations, setNominations }}>
-      <AlertContext.Provider value={{ alert, setAlert, open, setOpen }}>
+    <NominationsContext.Provider value={{ nominations, addNomination, removeNomination }}>
+      <AlertContext.Provider value={{ alert, setAlert, showAlert, setShowAlert }}>
         <Router>
           <Switch>
             <Route path="/movie/:imdbID">
@@ -28,7 +63,7 @@ function App() {
             </Route>
           </Switch>
         </Router>
-        <Snackbar autoHideDuration={5000}/>
+        <Snackbar autoHideDuration={5000} />
       </AlertContext.Provider>
     </NominationsContext.Provider>
   );

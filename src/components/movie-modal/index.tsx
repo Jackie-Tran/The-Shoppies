@@ -6,7 +6,6 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { useHistory } from 'react-router-dom';
 import { Movie, NominationsContext } from '../../context/nominations-context';
 import { device } from '../../constants/device';
-import { AlertContext } from '../../context/alert-context';
 
 type Props = {
   isShowing: boolean;
@@ -26,8 +25,9 @@ const MovieModal: React.FC<Props> = ({
   imdbID,
 }) => {
   const history = useHistory();
-  const { nominations, setNominations } = useContext(NominationsContext);
-  const { setAlert, setOpen } = useContext(AlertContext);
+  const { nominations, addNomination, removeNomination } = useContext(
+    NominationsContext
+  );
   const [isNominated, setIsNominated] = useState<boolean>(false);
 
   useEffect(() => {
@@ -41,32 +41,15 @@ const MovieModal: React.FC<Props> = ({
     setIsNominated(false);
   }, [imdbID, nominations]);
 
-  const addNomination = () => {
-    // Check if there are already 5 nominations
-    if (nominations.length === 5) {
-      setIsShowing(false);
-      setAlert({
-        severity: 'error',
-        message: 'You already made 5 nominations.',
-      });
-      setOpen(true);
-      return;
-    }
+  const handleAddNomination = async () => {
     const movie: Movie = { Title: title, Year: year, imdbID, Poster: poster };
-    setNominations(nominations.concat(movie));
     setIsShowing(false);
-    setAlert({ severity: 'success', message: 'Successfully made nomination.' });
-    setOpen(true);
+    addNomination(movie);
   };
 
-  const removeNomination = () => {
-    setNominations(nominations.filter((movie) => movie.imdbID !== imdbID));
+  const handleRemoveNomination = async () => {
     setIsShowing(false);
-    setAlert({
-      severity: 'success',
-      message: 'Successfully removed nomination.',
-    });
-    setOpen(true);
+    removeNomination(imdbID);
   };
 
   return (
@@ -93,7 +76,7 @@ const MovieModal: React.FC<Props> = ({
               <NominationButton
                 isNominated={isNominated}
                 onClick={() => {
-                  isNominated ? removeNomination() : addNomination();
+                  isNominated ? handleRemoveNomination() : handleAddNomination();
                 }}
               >
                 {isNominated ? 'Remove Nomination' : 'Nominate'}

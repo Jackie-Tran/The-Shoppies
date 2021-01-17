@@ -37,7 +37,7 @@ const generateIcon = (severity: string) => {
 };
 
 const Notification: React.FC<Alert> = () => {
-  const { alert, setOpen } = useContext(AlertContext);
+  const { alert, setShowAlert } = useContext(AlertContext);
 
   return (
     <Container severity={alert.severity}>
@@ -45,7 +45,7 @@ const Notification: React.FC<Alert> = () => {
         {generateIcon(alert.severity)}
         <Message>{alert.message}</Message>
       </MessageContainer>
-      <CloseButton onClick={() => setOpen(false)}>
+      <CloseButton onClick={() => setShowAlert(false)}>
         <RiCloseLine color="white" size={28} />
       </CloseButton>
     </Container>
