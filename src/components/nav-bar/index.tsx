@@ -76,6 +76,9 @@ const BackArrow = styled(MdArrowBack)`
   color: white;
   position: absolute;
   left: 5%;
+  @media ${device.desktop} {
+    left: 3%;
+  }
 `;
 
 const Title = styled.h1`
@@ -89,7 +92,7 @@ const Star = styled.div<{ length: number }>`
   position: absolute;
   right: 5%;
   @media ${device.desktop} {
-    margin-right: 3%;
+    right: 3%;
   }
 `;
 

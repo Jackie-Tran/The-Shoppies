@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Div100vh from 'react-div-100vh';
-import CloseIcon from '@material-ui/icons/Close';
+import { MdClose } from 'react-icons/md';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useHistory } from 'react-router-dom';
 import { Movie, NominationsContext } from '../../context/nominations-context';
@@ -112,7 +112,7 @@ const Container = styled(Div100vh)`
   align-items: center;
 `;
 
-const ExitIcon = styled(CloseIcon)`
+const ExitIcon = styled(MdClose)`
   position: absolute;
   color: white;
   top: 10px;

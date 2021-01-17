@@ -127,6 +127,7 @@ const Details = styled.div`
   padding: 5%;
   @media ${device.desktop} {
     padding: 1%;
+    width: 50%;
   }
 `;
 

@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import styled from 'styled-components';
-import CancelIcon from '@material-ui/icons/Cancel';
+import { IoCloseCircle } from 'react-icons/io5';
 import { NominationsContext } from '../../context/nominations-context';
 
 type Props = {
@@ -15,7 +15,7 @@ const Nomination: React.FC<Props> = ({ title, year, imdbID }) => {
     return (
         <Container>
             <Text>{title} ({year})</Text>
-            <CancelIcon onClick={() => removeNomination(imdbID)}/>
+            <IoCloseCircle onClick={() => removeNomination(imdbID)} fontSize='1.5rem' color='#3f424f'/>
         </Container>
     )
 }

@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import SearchIcon from '@material-ui/icons/Search';
+import { MdSearch } from 'react-icons/md';
 import { motion } from 'framer-motion';
 import { device } from '../../constants/device';
 
@@ -50,9 +50,9 @@ const SubmitButton = styled.button`
     background: none;
 `;
 
-const Icon = styled(SearchIcon)`
+const Icon = styled(MdSearch)`
     color: white;
-    
+    font-size: 2rem;
 `;
 
 export default SearchBar;
