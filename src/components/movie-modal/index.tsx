@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import Div100vh from 'react-div-100vh';
 import { MdClose } from 'react-icons/md';
@@ -29,6 +29,7 @@ const MovieModal: React.FC<Props> = ({
     NominationsContext
   );
   const [isNominated, setIsNominated] = useState<boolean>(false);
+  const outside = useRef(null);
 
   useEffect(() => {
     // Check if movie is already nominated
@@ -52,17 +53,26 @@ const MovieModal: React.FC<Props> = ({
     removeNomination(imdbID);
   };
 
+//   const handleClickOutside = (
+//     e: React.MouseEvent<HTMLDivElement, MouseEvent>
+//   ) => {
+//     if (outside.current === e.target) {
+//       setIsShowing(false);
+//     }
+//   };
+
   return (
     <AnimatePresence exitBeforeEnter>
       {isShowing && (
         <Backdrop
+          ref={outside}
           variants={backdrop}
           initial="hidden"
           animate="visible"
           exit="hidden"
         >
           <Container>
-            <ExitIcon fontSize="large" onClick={(e) => setIsShowing(false)} />
+            <ExitIcon onClick={(e) => setIsShowing(false)} />
             <Poster src={poster} />
             <MovieDetails>
               <Title>
@@ -76,7 +86,9 @@ const MovieModal: React.FC<Props> = ({
               <NominationButton
                 isNominated={isNominated}
                 onClick={() => {
-                  isNominated ? handleRemoveNomination() : handleAddNomination();
+                  isNominated
+                    ? handleRemoveNomination()
+                    : handleAddNomination();
                 }}
               >
                 {isNominated ? 'Remove Nomination' : 'Nominate'}
@@ -102,14 +114,18 @@ const Backdrop = styled(motion.div)`
   height: 100%;
   background: rgba(0, 0, 0, 0.5);
   backdrop-filter: blur(5px);
-  z-index: 2;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
-const Container = styled(Div100vh)`
+const Container = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  width: 100%;
 `;
 
 const ExitIcon = styled(MdClose)`
@@ -117,6 +133,7 @@ const ExitIcon = styled(MdClose)`
   color: white;
   top: 10px;
   left: 10px;
+  font-size: 2rem;
 `;
 
 const Poster = styled.img`
@@ -140,9 +157,9 @@ const Title = styled.h1`
 
 const Buttons = styled.div`
   display: flex;
-  width: 100%;
   justify-content: center;
   align-items: center;
+  width: 100%;
 `;
 
 const Button = styled.button`
@@ -152,7 +169,7 @@ const Button = styled.button`
   background-color: #1e90ff;
   color: white;
   font-size: 1rem;
-  padding: 5%;
+  padding: 3%;
   margin: 5%;
   @media ${device.desktop} {
     padding: 1% 3%;

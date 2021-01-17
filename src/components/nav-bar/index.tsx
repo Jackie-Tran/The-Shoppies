@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Badge from '../../components/badge';
 import { NominationsContext } from '../../context/nominations-context';
@@ -12,6 +12,12 @@ const Navbar: React.FC<{ showBack?: boolean }> = ({ showBack }) => {
   const { nominations } = useContext(NominationsContext);
   const [showNominations, setShowNominations] = useState<boolean>(false);
   const history = useHistory();
+
+  useEffect(() => {
+    if (nominations.length === 5) {
+        window.scroll({ top: 0, left: 0, behavior: 'smooth' });
+    }
+  }, [nominations])
 
   return (
     <Container>
@@ -66,7 +72,7 @@ const MainBar = styled.div`
   justify-content: center;
   align-items: center;
   padding: 3% 0;
-  z-index: 2;
+  z-index: 1;
   @media ${device.desktop} {
     padding: 1% 0;
   }

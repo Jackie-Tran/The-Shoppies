@@ -48,6 +48,7 @@ const BadgeContent = styled(motion.div)<{ colour?: string }>`
     height: 1.25rem;
     border-radius: 50%;
     font-size: 1rem;
+    color: white;
 `;
 
 export default Badge;
