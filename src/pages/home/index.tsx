@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import Div100vh from 'react-div-100vh';
 import Navbar from '../../components/nav-bar';
 import SearchBar from '../../components/search-bar';
 import axios from 'axios';
@@ -57,38 +56,6 @@ const HomePage: React.FC = () => {
             />
           );
         })}
-        {/* <MovieCard 
-            imdbID='tt0114709'
-            title='toy story'
-            year='1995'
-            poster='https://m.media-amazon.com/images/M/MV5BMDU2ZWJlMjktMTRhMy00ZTA5LWEzNDgtYmNmZTEwZTViZWJkXkEyXkFqcGdeQXVyNDQ2OTk4MzI@._V1_SX300.jpg'
-            setMovie={setMovie}
-            onClick={() => setShowModal(true)}
-        />
-        <MovieCard 
-            imdbID='tt0114709'
-            title='toy story'
-            year='1995'
-            poster='https://m.media-amazon.com/images/M/MV5BMDU2ZWJlMjktMTRhMy00ZTA5LWEzNDgtYmNmZTEwZTViZWJkXkEyXkFqcGdeQXVyNDQ2OTk4MzI@._V1_SX300.jpg'
-            setMovie={setMovie}
-            onClick={() => setShowModal(true)}
-        />
-        <MovieCard 
-            imdbID='tt0114709'
-            title='toy story'
-            year='1995'
-            poster='https://m.media-amazon.com/images/M/MV5BMDU2ZWJlMjktMTRhMy00ZTA5LWEzNDgtYmNmZTEwZTViZWJkXkEyXkFqcGdeQXVyNDQ2OTk4MzI@._V1_SX300.jpg'
-            setMovie={setMovie}
-            onClick={() => setShowModal(true)}
-        />
-        <MovieCard 
-            imdbID='tt0114709'
-            title='toy story'
-            year='1995'
-            poster='https://m.media-amazon.com/images/M/MV5BMDU2ZWJlMjktMTRhMy00ZTA5LWEzNDgtYmNmZTEwZTViZWJkXkEyXkFqcGdeQXVyNDQ2OTk4MzI@._V1_SX300.jpg'
-            setMovie={setMovie}
-            onClick={() => setShowModal(true)}
-        /> */}
       </ResultsContainer>
       <MovieModal
         isShowing={showModal}
