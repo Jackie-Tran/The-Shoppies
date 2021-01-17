@@ -5,6 +5,7 @@ import { AiOutlineWarning, AiOutlineInfoCircle } from 'react-icons/ai';
 import { BiErrorCircle } from 'react-icons/bi';
 import { RiCloseLine } from 'react-icons/ri';
 import { Alert, AlertContext } from '../../context/alert-context';
+import { device } from '../../constants/device';
 
 const generateColor = (severity: string): string => {
   switch (severity) {
@@ -63,6 +64,10 @@ const Container = styled.div<{ severity: string }>`
   border-radius: 10px;
   box-shadow: 0 0 10px 2px #464646;
   margin-top: 3%;
+  @media ${device.desktop} {
+      width: 50%;
+      padding: 1%;
+  }
 `;
 
 const MessageContainer = styled.div`

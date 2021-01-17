@@ -63,12 +63,12 @@ const MoviePage: React.FC = () => {
   const handleAddNomination = async () => {
     const { Title, Year, imdbID, Poster } = movie;
     const basicMovie = { Title, Year, imdbID, Poster };
-    await addNomination(basicMovie);
+    addNomination(basicMovie);
     setIsNominated(true);
   };
 
   const handleRemoveNomination = async () => {
-    await removeNomination(imdbID);
+    removeNomination(imdbID);
     setIsNominated(false);
   };
 
@@ -87,7 +87,7 @@ const MoviePage: React.FC = () => {
         <NominateButton
           isNominated={isNominated}
           onClick={() => {
-            isNominated ? handleAddNomination() : handleRemoveNomination();
+            isNominated ? handleRemoveNomination() : handleAddNomination();
           }}
         >
           {isNominated ? 'Remove Nomination' : 'Nominate'}
