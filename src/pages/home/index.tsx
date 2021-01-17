@@ -75,12 +75,16 @@ const Container = styled.div`
 `;
 
 const ResultsContainer = styled.div`
-  display: flex;
-  justify-content: space-evenly;
+  display: inline-grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  justify-items: center;
+  justify-content: space-between;
   flex-wrap: wrap;
-  padding-top: 5%;
+  padding: 5%;
   @media ${device.desktop} {
       padding-top: 3%;
+      grid-template-columns: repeat(4, 1fr);
   }
 `;
 
