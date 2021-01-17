@@ -1,23 +1,31 @@
 import React, { useContext, useState } from 'react';
 import styled from 'styled-components';
-import StarIcon from '@material-ui/icons/Star';
-import { Badge } from '@material-ui/core';
+import Badge from '../../components/badge';
 import { NominationsContext } from '../../context/nominations-context';
 import NominationsModal from '../nominations-modal';
 import { AnimatePresence, motion } from 'framer-motion';
 import { device } from '../../constants/device';
+import { MdStar, MdArrowBack } from 'react-icons/md';
+import { useHistory } from 'react-router-dom';
 
-const Navbar: React.FC = () => {
+const Navbar: React.FC<{ showBack?: boolean }> = ({ showBack }) => {
   const { nominations } = useContext(NominationsContext);
   const [showNominations, setShowNominations] = useState<boolean>(false);
+  const history = useHistory();
 
   return (
     <Container>
       <MainBar>
+        {showBack && (
+          <BackArrow onClick={() => history.goBack()} fontSize="2rem" />
+        )}
         <Title>Shoppies</Title>
         <Star length={nominations.length}>
-          <Badge badgeContent={nominations.length} color="primary">
-            <StarIcon onClick={() => setShowNominations(!showNominations)} fontSize='large'/>
+          <Badge badgeContent={nominations.length} colour='#5299D3 '>
+            <MdStar
+              onClick={() => setShowNominations(!showNominations)}
+              fontSize="2rem"
+            />
           </Badge>
           <NominationsModal
             isShowing={showNominations}
@@ -33,9 +41,7 @@ const Navbar: React.FC = () => {
             animate="visible"
             exit="hidden"
           >
-            <BannerText>
-                ✨Thanks for nominating 5 movies!✨
-            </BannerText>
+            <BannerText>✨Thanks for nominating 5 movies!✨</BannerText>
           </Banner>
         )}
       </AnimatePresence>
@@ -62,8 +68,14 @@ const MainBar = styled.div`
   padding: 3% 0;
   z-index: 2;
   @media ${device.desktop} {
-      padding: 1% 0;
+    padding: 1% 0;
   }
+`;
+
+const BackArrow = styled(MdArrowBack)`
+  color: white;
+  position: absolute;
+  left: 5%;
 `;
 
 const Title = styled.h1`
@@ -74,11 +86,10 @@ const Title = styled.h1`
 
 const Star = styled.div<{ length: number }>`
   color: ${(props) => (props.length === 5 ? 'gold' : 'white')};
-  margin-right: 5%;
   position: absolute;
-  right: 0;
+  right: 5%;
   @media ${device.desktop} {
-      margin-right: 3%;
+    margin-right: 3%;
   }
 `;
 
@@ -95,11 +106,11 @@ const Banner = styled(motion.div)`
 `;
 
 const BannerText = styled(motion.p)`
-    margin: 3%;
-    @media ${device.desktop} {
-        margin: 2%;
-        font-size: 2rem;
-    }
+  margin: 3%;
+  @media ${device.desktop} {
+    margin: 2%;
+    font-size: 2rem;
+  }
 `;
 
 export default Navbar;
