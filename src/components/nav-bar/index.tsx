@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import styled from 'styled-components';
-import { Badge } from '@material-ui/core';
+import Badge from '../../components/badge';
 import { NominationsContext } from '../../context/nominations-context';
 import NominationsModal from '../nominations-modal';
 import { AnimatePresence, motion } from 'framer-motion';
@@ -21,7 +21,7 @@ const Navbar: React.FC<{ showBack?: boolean }> = ({ showBack }) => {
         )}
         <Title>Shoppies</Title>
         <Star length={nominations.length}>
-          <Badge badgeContent={nominations.length} color="primary">
+          <Badge badgeContent={nominations.length} colour='#5299D3 '>
             <MdStar
               onClick={() => setShowNominations(!showNominations)}
               fontSize="2rem"
