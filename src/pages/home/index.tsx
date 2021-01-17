@@ -26,7 +26,7 @@ const HomePage: React.FC = () => {
 
   const handleSearch = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const parsedSearch = search.replaceAll(' ', '+');
+    const parsedSearch = search.trim().replaceAll(' ', '+');
     try {
       const {
         data: { Search: res },
@@ -41,7 +41,7 @@ const HomePage: React.FC = () => {
   };
 
   const handleLoadMore = async () => {
-      const parsedSearch = search.replaceAll(' ', '+');
+      const parsedSearch = search.trim().replaceAll(' ', '+');
     try {
         const { data: res } = await axios.get(API.SEARCH_TITLE(parsedSearch, page + 1));
         // Check if there are no more pages

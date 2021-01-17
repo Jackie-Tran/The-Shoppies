@@ -54,7 +54,7 @@ const MoviePage: React.FC = () => {
           }
         }
       } catch (err) {
-        console.log(err);
+        // console.log(err);
       }
       setIsNominated(false);
     })();
