@@ -74,7 +74,7 @@ const MoviePage: React.FC = () => {
 
   return (
     <Container>
-      <Navbar />
+      <Navbar showBack/>
       <MovieContainer>
         <Poster src={movie.Poster} />
         <Details>

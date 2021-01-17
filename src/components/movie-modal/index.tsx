@@ -149,7 +149,7 @@ const Button = styled.button`
   -webkit-appearance: none;
   border-radius: 5px;
   border: none;
-  background-color: #04a777;
+  background-color: #1e90ff;
   color: white;
   font-size: 1rem;
   padding: 5%;

@@ -26,7 +26,7 @@ const NominationsModal: React.FC<Props> = ({ isShowing, setIsShowing }) => {
           {
               nominations.map((movie: Movie) => {
                   return (
-                      <Nomination imdbID={movie.imdbID} title={movie.Title} year={movie.Year} />
+                      <Nomination key={movie.imdbID} imdbID={movie.imdbID} title={movie.Title} year={movie.Year} />
                   )
               })
           }
