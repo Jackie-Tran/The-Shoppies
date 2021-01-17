@@ -22,7 +22,7 @@ const HomePage: React.FC = () => {
   });
   const [showModal, setShowModal] = useState<boolean>(false);
   const [showLoadButton, setShowLoadButton] = useState<boolean>(false);
-  const { setAlert, setShowAlert } = useContext(AlertContext); 
+  const { setAlert, setShowAlert } = useContext(AlertContext);
 
   const handleSearch = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -31,34 +31,49 @@ const HomePage: React.FC = () => {
       const {
         data: { Search: res },
       } = await axios.get(API.SEARCH_TITLE(parsedSearch, 1));
-      setData(res);
-      setPage(1);
-      setShowLoadButton(true);
-      console.log(res);
+      // Check if no results
+      if (res) {
+        setShowLoadButton(true);
+        setData(res);
+        setPage(1);
+      } else {
+        setAlert({
+          severity: 'warning',
+          message: 'No results available.',
+        });
+        setShowAlert(true);
+        setShowLoadButton(false);
+        return;
+      }
     } catch (err) {
-      console.log(err);
+      //   console.log(err);
     }
   };
 
   const handleLoadMore = async () => {
-      const parsedSearch = search.trim().replaceAll(' ', '+');
+    const parsedSearch = search.trim().replaceAll(' ', '+');
     try {
-        const { data: res } = await axios.get(API.SEARCH_TITLE(parsedSearch, page + 1));
-        // Check if there are no more pages
-        if (res.Response === 'False') {
-            setAlert({ severity: 'warning', message: 'No more results available.'});
-            setShowAlert(true);
-            setShowLoadButton(false);
-            return;
-        }
-        // Concat the new results to the current data
-        setData(data?.concat(res.Search));
-        setPage(page + 1);
-        console.log(res);
+      const { data: res } = await axios.get(
+        API.SEARCH_TITLE(parsedSearch, page + 1)
+      );
+      // Check if there are no more pages
+      if (res.Response === 'False') {
+        setAlert({
+          severity: 'warning',
+          message: 'No more results available.',
+        });
+        setShowAlert(true);
+        setShowLoadButton(false);
+        return;
+      }
+      // Concat the new results to the current data
+      setData(data?.concat(res.Search));
+      setPage(page + 1);
+      // console.log(res);
     } catch (err) {
-        console.log(err);
+      // console.log(err);
     }
-  }
+  };
 
   return (
     <Container>
@@ -83,11 +98,9 @@ const HomePage: React.FC = () => {
           );
         })}
       </ResultsContainer>
-      {
-          showLoadButton && (
-            <LoadButton onClick={handleLoadMore}>Load More</LoadButton>
-          )
-      }
+      {showLoadButton && (
+        <LoadButton onClick={handleLoadMore}>Load More</LoadButton>
+      )}
       <MovieModal
         isShowing={showModal}
         setIsShowing={setShowModal}
@@ -125,7 +138,7 @@ const LoadButton = styled.button`
   border-radius: 5px;
   border: none;
   align-self: center;
-  background-color:#555b6e;
+  background-color: #555b6e;
   color: white;
   font-size: 1rem;
   width: 50%;
