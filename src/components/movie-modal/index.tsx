@@ -1,6 +1,5 @@
 import React, { useContext, useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
-import Div100vh from 'react-div-100vh';
 import { MdClose } from 'react-icons/md';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useHistory } from 'react-router-dom';
