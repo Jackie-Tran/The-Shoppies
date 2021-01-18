@@ -111,7 +111,7 @@ const Banner = styled(motion.div)`
   width: 100%;
   margin: 0;
   overflow: hidden;
-  z-index: 1;
+  z-index: 0;
 `;
 
 const BannerText = styled(motion.p)`

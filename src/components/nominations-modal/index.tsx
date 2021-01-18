@@ -55,7 +55,7 @@ const Container = styled(motion.div)`
   display: flex;
   flex-direction: column;
   align-items: center;
-  z-index: 10;
+  z-index: 2;
   @media ${device.desktop} {
         width: 30vw;
     }
